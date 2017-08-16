@@ -1,0 +1,77 @@
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            任务记录管理
+            <small></small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i>主页</a></li>
+            <li><a href="#">内容管理</a></li>
+            <li class="active">微信用户记录管理</li>
+        </ol>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="row">
+
+            <div class="col-md-12">
+                <div class="box">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">任务管理</h3>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        <table class="table table-bordered">
+                            <tr>
+
+
+                                <th>点击人</th>
+
+                                <th>时间</th>
+                                <th>一级师傅</th>
+                                <th>二级师傅</th>
+                                <th>三级师傅</th>
+                                <th>操作</th>
+                            </tr>
+
+                            <tr *ngFor="let record of taskRecords;let i = index">
+                                <td>{{record.shareDetail[0].user.nickname}} ￥ {{record.shareDetail[0].money}} </td>
+                                <td>{{record.createDt | date:'yyyy-MM-dd hh:mm:ss'}}</td>
+                                <td>
+                                    <div *ngIf="record.shareDetail[1]">{{record.shareDetail[1]?.user.nickname}} ￥ {{record.shareDetail[1].money}}</div>
+                                </td>
+                                <td>
+                                    <div *ngIf="record.shareDetail[2]">{{record.shareDetail[2]?.user.nickname}} ￥ {{record.shareDetail[2]?.money}} </div>
+                                </td>
+                                <td>
+                                    <div *ngIf="record.shareDetail[3]">{{record.shareDetail[3]?.user.nickname}} ￥ {{record.shareDetail[3]?.money}} </div>
+                                </td>
+
+                                <td>
+                                    <a class="badge bg-green-active" routerLink="/admin/record-edit" [queryParams]="{_id:record._id}">编辑</a> <span class="badge bg-red" (click)="deleteTask(task)">删除</span></td>
+                            </tr>
+
+                        </table>
+                    </div>
+                    <!-- /.box-body -->
+                    <div class="box-footer clearfix">
+                        <ul class="pagination pagination-sm no-margin pull-right">
+                            <li (click)="lessPage()"><a>&laquo;</a></li>
+                            <li *ngFor="let page of pages;let i =index" [class.active]="currentPage==i" (click)="this.currentPage=i;getTaskRecordList()" [style.display]="currentPage>i+2||currentPage<i-2?'none':'inline-block' "><a>{{i+1}}</a></li>
+                            <li (click)="morePage()"><a>&raquo;</a></li>
+                        </ul>
+                    </div>
+
+                </div>
+                <!-- /.box -->
+
+                <!-- /.box -->
+            </div>
+
+        </div>
+    </section>
+    <!-- /.content -->
+</div>

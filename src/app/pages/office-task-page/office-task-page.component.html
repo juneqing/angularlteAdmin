@@ -1,0 +1,35 @@
+<div class="content-wrapper">
+
+    <section class="content-header">
+        <h1>
+            {{bannerTable.name}}
+            <small>banner management</small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a><i class="fa fa-dashboard"></i>主页</a></li>
+            <li>
+                <a>官方广告</a>
+            </li>
+            <li routerLink="/admin/office-task"> {{bannerTable.name}}</li>
+        </ol>
+    </section>
+    <section class="content">
+
+        <div class="row">
+            <div class="col-md-12">
+            </div>
+            <div class="col-md-12">
+                <app-table [model]="bannerTable.model" [fields]="bannerTable.fields" [createable]="bannerTable.createable"></app-table>
+            </div>
+        </div>
+    </section>
+    <section class="content">
+        <div class="row">
+            <div class="col-md-12">
+            </div>
+            <div class="col-md-12">
+                <app-table [model]="officeTaskTable.model" [fields]="officeTaskTable.fields" [oneActions]="officeTaskTable.oneActions" [query]="{key:'publisher',value:'59891dff21da0d1e80de2dc0'}"></app-table>
+            </div>
+        </div>
+    </section>
+</div>

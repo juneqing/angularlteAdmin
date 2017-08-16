@@ -1,0 +1,157 @@
+<h1>{{tableName}}</h1>
+
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="btn btn-success" (click)="getItemList()">刷新</div>
+        <div class="btn btn-primary" (click)="showList()">列表</div>
+        <div class="btn btn-primary" (click)="createItem()" *ngIf="createable">创建</div>
+        <div class="btn btn-danger pull-right" (click)="deleteBat()">批量删除</div>
+
+    </div>
+    <div class="col-md-12">
+
+        <div class="mailbox-controls">
+            <!-- Check all button -->
+            <!-- search form -->
+            <form action="#" method="get" class="sidebar-form col-md-8">
+                <div class="input-group">
+                    <input type="text" name="q" class="form-control" [(ngModel)]="keyword" placeholder="输入用户名,关键字">
+                    <span class="input-group-btn"> 
+                               <button type="submit" name="search" id="search-btn" class="btn btn-flat" (click)="search()"><i class="fa fa-search"></i>
+                               </button>
+                            </span>
+                </div>
+            </form>
+            <!-- /.search form -->
+            <div class="pull-right marginTop">
+                {{count}}条记录
+                <div class="btn-group">
+                    <button type="button" class="btn btn-default btn-sm" (click)="lessPage()"><i class="fa fa-chevron-left"></i></button>
+                    <button type="button" class="btn btn-default btn-sm" (click)="morePage()"><i class="fa fa-chevron-right"></i></button>
+                </div>
+                <!-- /.btn-group -->
+            </div>
+        </div>
+    </div>
+
+
+
+
+</div>
+<div class="box-body" *ngIf="status==Status.LIST">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>选择</th>
+                <th *ngFor="let field of fields">{{field.label}}
+                    <span *ngIf="field.sortable">
+                    <span  (click)="toggleSort(field)"><i class="glyphicon glyphicon-arrow-up" [ngClass]="{'glyphicon-arrow-up':field.desc,'glyphicon-arrow-down':!field.desc} "></i></span>
+                    </span>
+                </th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of items">
+                <td><input type="text" type="checkbox" [checked]="item.checked" [(ngModel)]="item.checked"> </td>
+                <td *ngFor="let field of fields">
+                    <div [ngSwitch]="field.type">
+
+                        <div *ngSwitchCase="FieldTypes.String">
+                            {{item[field.key] | type: field.type }}
+
+                        </div>
+                        <div *ngSwitchCase="FieldTypes.Date">
+                            {{item[field.key] | type: field.type }}
+                        </div>
+                        <div *ngSwitchCase="FieldTypes.Number">
+                            {{item[field.key]}}
+                        </div>
+
+                        <div *ngSwitchCase="FieldTypes.CheckBox">
+                            <input type="checkbox" disabled="disabled" [(ngModel)]="item[field.key]">
+
+                        </div>
+                        <div *ngSwitchCase="FieldTypes.TextArea">
+                            {{item[field.key] | type: field.type }}
+                        </div>
+                        <div *ngSwitchCase="FieldTypes.Url">
+                            <a [href]="item[field.key]" target="_blank">{{item[field.key]}}
+                            </a>
+                        </div>
+                        <div *ngSwitchCase="FieldTypes.Image">
+                            <img [src]="item[field.key]" alt="" style="width:150px;">
+                        </div>
+                        <div *ngSwitchCase="FieldTypes.Money">{{item[field.key] | type: field.type }}</div>
+                    </div>
+
+                </td>
+                <td *ngIf="delable">
+                    <span class="btn btn-success" *ngFor="let action of oneActions" (click)="action.callback(item)">{{action.label}}</span>
+                    <span class="btn btn-warning" (click)="editOneItem(item)">编辑</span>
+                    <span class="btn btn-danger" (click)="deleteItem(item)">删除</span>
+
+
+                </td>
+
+            </tr>
+
+        </tbody>
+    </table>
+
+
+
+</div>
+<div class="box-footer clearfix" *ngIf="status==Status.LIST">
+    <ul class="pagination pagination-sm no-margin pull-right">
+        <li (click)="lessPage()"><a>&laquo;</a></li>
+        <li *ngFor="let page of pages;let i =index" [class.active]="currentPage==i" (click)="currentPage=i;getItemList(i)"><a>{{i+1}}</a></li>
+        <li (click)="morePage()"><a>&raquo;</a></li>
+    </ul>
+</div>
+
+
+<div class="box-body" *ngIf="status == Status.CREATE">
+    <div>
+        <legend>添加一条数据</legend>
+        <div class="form-group" *ngFor="let field of (fields | prop:{createable:true} );let i = index">
+            <label for="">{{field.label}}</label>
+            <div [ngSwitch]="field.type">
+                <input *ngSwitchCase="FieldTypes.Number" type="number" class="form-control" [placeholder]="field.label" [(ngModel)]="newItem[field.key]" />
+                <input *ngSwitchCase="FieldTypes.Money" type="number" class="form-control" [placeholder]="field.label" [(ngModel)]="newItem[field.key]" />
+                <input *ngSwitchCase="FieldTypes.Date" type="datetime-local" class="form-control" [placeholder]="field.label" [(ngModel)]="newItem[field.key]" />
+                <input *ngSwitchCase="FieldTypes.Url" type="url" class="form-control" [placeholder]="field.label" [(ngModel)]="newItem[field.key]">
+                <input *ngSwitchCase="FieldTypes.CheckBox" type="checkbox" class="form-control" [placeholder]="field.label" [(ngModel)]="newItem[field.key]">
+                <div *ngSwitchCase="FieldTypes.Image">
+                    <img [src]="editItem[field.key]" alt="">
+                    <input type="file" class="form-control" [placeholder]="field.label" (change)="uploadImage($event.target.files[0],newItem,field.key) ">
+                </div>
+
+                <input class="form-control" [placeholder]="field.label" [(ngModel)]="newItem[field.key]" *ngSwitchDefault />
+            </div>
+        </div>
+        <button (click)="saveNewItem()" class="btn btn-info">提交</button>
+    </div>
+</div>
+<div class="box-body" *ngIf="status == Status.DETAIL">
+    <div>
+        <legend>添加一条数据</legend>
+        <div class="form-group" *ngFor="let field of (fields | prop:{editable:true} );let i = index">
+            <label for="">{{field.label}}</label>
+            <div [ngSwitch]="field.type">
+                <input *ngSwitchCase="FieldTypes.Number" type="number" class="form-control" [placeholder]="field.label" [(ngModel)]="editItem[field.key]" />
+                <input *ngSwitchCase="FieldTypes.Money" type="number" class="form-control" [placeholder]="field.label" [(ngModel)]="editItem[field.key]" />
+                <input *ngSwitchCase="FieldTypes.Date" type="datetime-local" class="form-control" [placeholder]="field.label" [(ngModel)]="editItem[field.key]" />
+                <input *ngSwitchCase="FieldTypes.Url" type="url" class="form-control" [placeholder]="field.label" [(ngModel)]="editItem[field.key]">
+                <input *ngSwitchCase="FieldTypes.CheckBox" type="checkbox" [placeholder]="field.label" [(ngModel)]="editItem[field.key]">
+                <div *ngSwitchCase="FieldTypes.Image">
+                    <img [src]="editItem[field.key]" alt="">
+                    <input type="file" class="form-control" [placeholder]="field.label" (change)="uploadImage($event.target.files[0],editItem,field.key) ">
+                </div>
+                <input class="form-control" [placeholder]="field.label" [(ngModel)]="editItem[field.key]" *ngSwitchDefault />
+            </div>
+        </div>
+        <button (click)="updateItem()" class="btn btn-info">更新</button>
+    </div>
+</div>

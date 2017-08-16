@@ -1,0 +1,29 @@
+<div class="content-wrapper">
+
+    <section class="content-header">
+        <h1>
+            {{name}}
+            <small></small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a><i class="fa fa-dashboard"></i>主页</a></li>
+            <li>
+                <a></a>
+            </li>
+            <li routerLink="/admin/table-page?model={{model}}"> {{name}}</li>
+        </ol>
+    </section>
+    <section class="content">
+
+        <div class="row">
+            <div class="col-md-12">
+
+            </div>
+            <div class="col-md-12">
+                <app-table [model]="model" [fields]="fields" *ngIf="model" [oneActions]="oneActions"></app-table>
+            </div>
+
+        </div>
+    </section>
+
+</div>

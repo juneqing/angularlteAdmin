@@ -1,0 +1,37 @@
+.newEditPanel,
+.newEditPanel>a {
+    height: 100px;
+    background: #00C0EF;
+}
+
+.newEditPanel>a,
+.newEditPanel:active>a {
+    background: #00C0EF!important;
+    border-left-color: #00C0EF!important;
+}
+
+.newEditPanel:hover>a {
+    background: #50DBFC!important;
+    border-left-color: #50DBFC!important;
+}
+
+.skin-blue .sidebar-menu>li>a {
+    border-left: 3px solid #00C0EF!important;
+}
+
+.editTask {
+    height: 80px;
+    text-align: center;
+    color: #fff;
+}
+
+.editTask i {
+    font-size: 30px;
+    width: 32px;
+    height: 32px;
+    margin: 8px 0 0;
+}
+
+.editTask p {
+    font-size: 16px;
+}

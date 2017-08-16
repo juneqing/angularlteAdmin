@@ -1,0 +1,82 @@
+.active>a,
+.active>a:hover {
+    color: #00C0EF!important;
+}
+
+.content {
+    margin: 20px;
+    padding: 20px;
+    border-radius: 3px;
+    box-shadow: 0 2px 2px 0 #d3d5d6;
+    background: #fff;
+    border: 1px solid gray;
+    height: 700px;
+}
+
+.title {
+    font-size: 14px;
+    color: #76838f;
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-weight: 900;
+}
+
+.nav {
+    margin-bottom: 20px;
+}
+
+.platform {
+    padding: 45px 0;
+    text-align: center;
+}
+
+.platform a {
+    display: block;
+}
+
+.platform a:hover {
+    border: 1px solid #00C0EF;
+}
+
+.platform-item {
+    display: inline-block;
+    height: 450px;
+    line-height: 16px;
+    font-size: 14px;
+    font-weight: 900;
+    text-align: center;
+    border: 1px solid #ebebeb;
+    border-radius: 5px;
+    color: #909090;
+    background: #fff;
+}
+
+.icon {
+    font-size: 83px;
+    color: #00C0EF;
+    margin-top: 100px;
+}
+
+.fc-blue {
+    color: #00C0EF;
+}
+
+.col-xs-6 {
+    line-height: 33px;
+}
+
+.btn {
+    padding: 5px 5px;
+}
+
+.mt-20 {
+    margin-top: 20px !important;
+}
+
+.topic {
+    display: block;
+    padding: 34px 0 18px;
+    font-size: 20px;
+    line-height: 22px;
+    color: #636363;
+}
