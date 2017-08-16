@@ -38,7 +38,7 @@ export class RechargeListPageComponent implements OnInit {
 
   async getRechargeRecordList(page: number = 0) {//获取充值列表
     this.currentPage = page;
-    let result = await this.config.GetManage('recharge-list?page=' + page);
+    let result = await this.config.GetManage('/admin.rechargeList.go?page=' + page);
     // this.rechargeRecords = await this.config.GetManage('recharge-list');
     this.rechargeRecord = result.rechargeLists;
     this.count = result.count;

@@ -19,11 +19,11 @@ export class BannerEditPageComponent implements OnInit {
   ngOnInit() {
   }
   async getBanner() {//获取广告的id
-    this.editBanner = await this.config.GetServer('banner?_id=' + this._id);
+    this.editBanner = await this.config.GetServer('/admin.banner.go?_id=' + this._id);
   }
   async modifyBanner() {//图片信息修改
-    await this.config.PutServer('banner?_id=' + this.editBanner._id, { sort: this.editBanner.sort, bannerImg: this.editBanner.bannerImg });
-    this.config.router.navigateByUrl('/admin/banner-list');
+    await this.config.PutServer('/admin.banner.go?_id=' + this.editBanner._id, { sort: this.editBanner.sort, bannerImg: this.editBanner.bannerImg });
+    this.config.router.navigateByUrl('/admin.bannerList.go');
   }
 
   async   uploadImage(file: File) {
@@ -32,7 +32,7 @@ export class BannerEditPageComponent implements OnInit {
     //  压缩bas64图片数据 
     // let compressBase64 = await this.config.convertImageToBase64(base64);
     // 上传并返回图片地址
-    let url = await this.config.PostServer('uploadBase64', { base64 });
+    let url = await this.config.PostServer('/admin.uploadBase64.go', { base64 });
     console.log(url);
     // this.config.('api')
     // console.log(compressBase64);

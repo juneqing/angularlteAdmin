@@ -18,7 +18,7 @@ export class ProjectListPageComponent implements OnInit {
 
 
   async getProjectList() {
-    this.projects = await this.config.GetServer('project');
+    this.projects = await this.config.GetServer('/admin.project.go');
 
   }
 

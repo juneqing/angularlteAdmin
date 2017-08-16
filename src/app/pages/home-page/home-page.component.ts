@@ -20,7 +20,7 @@ export class HomePageComponent implements OnInit {
     this.getUserList()
   }
   async getUserList() {
-    this.mainInfo = await this.config.Get('main-info');
+    this.mainInfo = await this.config.Get('/admin.mainInfo.go');
 
 
   }

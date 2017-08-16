@@ -20,12 +20,12 @@ export class BannerListPageComponent implements OnInit {
   ngOnInit() {
   }
   async addBanner(task) {
-    await this.config.GetServer('add-banner?taskId=' + task._id);
+    await this.config.GetServer('/admin.addBanner.go?taskId=' + task._id);
     this.getBannerList()
   }
   async getBannerList(page: number = 0) {//获取广告页列表
     this.currentPage = page;
-    let result = await this.config.GetServer('banner-list?page=' + page);
+    let result = await this.config.GetServer('/admin.bannerList.go?page=' + page);
     this.banners = result.banners;
     this.count = result.count;
     this.pageSize = new Array(Math.ceil(this.count / 20));
@@ -40,13 +40,13 @@ export class BannerListPageComponent implements OnInit {
   }
 
   async toggleBannerActive(banner) {
-    await this.config.GetServer('toggle-banner-active?_id=' + banner._id);
+    await this.config.GetServer('/admin.toggleBannerActive.go?_id=' + banner._id);
     await this.getBannerList();
   }
 
 
   async getTaskList(page: number = 0) {//获取任务列表
-    let tasks = await this.config.Get('task-list?page=' + page);
+    let tasks = await this.config.Get('/admin.taskList.go?page=' + page);
     this.tasks = tasks.tasks;
     this.count = tasks.count;
     this.pageSize = new Array(Math.ceil(this.count / 20));

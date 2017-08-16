@@ -13,12 +13,24 @@ export namespace Types {
         historyMoney?: number;
     }
     export interface IUser {
+        _id?: string;
         nickname: string;
+        todayMoney?: number;
+        totalMoney?: number;
+        createDt?: number;
+        isFinish?: boolean;
+        sex?: number;
     }
     export interface Field {
         label: string;
         key: string;
 
+    }
+    export interface ITaskRecord {
+        _id?: string;
+        shareDetail: { user: IUser, money: number }[];
+        createDt?: Date;
+        task?: ITask;
     }
 
     export interface ITaskTag {

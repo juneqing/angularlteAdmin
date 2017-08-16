@@ -18,7 +18,7 @@ export class TaskRecordListPageComponent implements OnInit {
   }
 
   async getTaskRecordList() {
-    let result = await this.config.GetServer(`task-record?page=${this.currentPage}&pageSize=30`);
+    let result = await this.config.GetServer(`/admin.taskRecord.go?page=${this.currentPage}&pageSize=30`);
     this.taskRecords = result.rows;
     this.maxPage = Math.ceil(result.count / 30);
     this.pages = new Array(this.maxPage);

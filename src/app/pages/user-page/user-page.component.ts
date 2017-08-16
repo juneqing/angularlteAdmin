@@ -1,7 +1,8 @@
-import { FieldTypes } from '../../types';
+import { FieldTypes, Types } from '../../types';
 import { ITable } from '../../types';
 import { FormField } from '../../types';
 import { Component, OnInit } from '@angular/core';
+import { ConfigService } from '../../services/config.service';
 
 @Component({
   selector: 'app-user-page',
@@ -11,6 +12,16 @@ import { Component, OnInit } from '@angular/core';
 export class UserPageComponent implements OnInit {
   name: string = '用户管理';
   model: string = 'userModel';
+  selectedUser: Types.IUser;
+  relationTree: {
+    level1Parent: Types.IUser,
+    level2Parent: Types.IUser,
+    level3Parent: Types.IUser,
+    level1Children: Types.IUser[],
+    level2Children: Types.IUser[],
+    level3Children: Types.IUser[],
+  };
+  userClickRecords: Types.ITaskRecord[] = []
   fields: FormField[] = [
     { key: '_id', label: '_id', type: FieldTypes.String },
     { key: 'nickname', label: '昵称', type: FieldTypes.String },
@@ -22,11 +33,19 @@ export class UserPageComponent implements OnInit {
     { key: 'totalMoney', label: '当前余额', type: FieldTypes.Money }
   ];
   oneActions = [
-    // { name: '选中', callback: (item) => console.log(item) }
+    { label: '师徒关系树', callback: (item) => { this.selectedUser = item; this.getRelationTree(); this.userClickRecords = undefined; } },
+    { label: '返利记录', callback: (item) => { this.selectedUser = item; this.getUserClickRecord(); this.relationTree = undefined; } }
   ]
   delable: boolean = false;
+  async getUserClickRecord() {
+    this.userClickRecords = await this.config.Get("/admin.userClickRecord.go?userId=" + this.selectedUser._id);
+  }
 
-  constructor() { }
+  constructor(public config: ConfigService) { }
+  async getRelationTree() {
+    let data = await this.config.Get("/admin.relationTree.go?userId=" + this.selectedUser._id);
+    this.relationTree = data.tree;
+  }
 
   ngOnInit() {
   }

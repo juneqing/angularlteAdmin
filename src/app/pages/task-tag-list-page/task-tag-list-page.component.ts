@@ -18,7 +18,7 @@ export class TaskTagListPageComponent implements OnInit {
 
   }
   async  getTaskTagList() {
-    let data = await this.config.Get('taskTag-list');
+    let data = await this.config.Get('/admin.taskTagList.go');
     this.taskNums = data.taskNums;
     this.taskTags = data.taskTags;
   }
@@ -28,7 +28,7 @@ export class TaskTagListPageComponent implements OnInit {
     if (subTaskNum > 0) {
       alert('请删除下面子类产品')
     } else {
-      let action = await this.config.Delete(`taskTag?_id=${taskTag._id}`);
+      let action = await this.config.Delete(`/admin.taskTag.go?_id=${taskTag._id}`);
       console.log(action);
     }
 

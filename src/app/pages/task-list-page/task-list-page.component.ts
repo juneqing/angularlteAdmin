@@ -31,7 +31,7 @@ export class TaskListPageComponent implements OnInit {
    *  返回所有任务包括未审核 已经审核的任务
    */
   async getTaskByTaskTag(taskTag?: Types.ITaskTag) {
-    this.tasks = await this.config.Get(`task-by-taskTag?taskTag=${this.selectedTaskTag._id}`);
+    this.tasks = await this.config.Get(`/admin.taskByTaskTag.go?taskTag=${this.selectedTaskTag._id}`);
   }
 
   /**
@@ -40,13 +40,13 @@ export class TaskListPageComponent implements OnInit {
    */
   async getUnActiveTaskByTaskTag() {
 
-    this.tasks = await this.config.Get(`task-by-taskTag?taskTag=${this.selectedTaskTag._id}&active=false`);
+    this.tasks = await this.config.Get(`/admin.taskByTaskTag.go?taskTag=${this.selectedTaskTag._id}&active=false`);
 
 
   }
 
   async getTaskTags(page: number = 0) {
-    let result = await this.config.Get('taskTag-list?page' + page);
+    let result = await this.config.Get('/admin.taskTagList.go?page' + page);
     this.taskTags = result.taskTags;
     result.taskNums.forEach((num, i) => {
       this.taskTags[i].subTaskNum = num;
@@ -61,7 +61,7 @@ export class TaskListPageComponent implements OnInit {
     task.publisher = task.publisher['_id'];
     let _id = task._id;
     delete task._id;
-    let action = await this.config.Put('task?_id=' + _id, task);
+    let action = await this.config.Put('/admin.task.go?_id=' + _id, task);
     await this.getUnActiveTaskByTaskTag();
   }
   lessPage() {

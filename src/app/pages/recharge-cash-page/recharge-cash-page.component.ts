@@ -19,7 +19,7 @@ export class RechargeCashPageComponent implements OnInit {
   }
   async getmoneyList(page: number = 0) {//获取提现用户列表
     this.currentPage = page;
-    let result = await this.config.GetManage('getmoney-list?page=' + page);
+    let result = await this.config.GetManage('/admin.getmoneyList.go?page=' + page);
     this.getmoneys = result.getmoneyLists;
     this.count = result.count;
     this.pageSize = new Array(Math.ceil(this.count / 30));

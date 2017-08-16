@@ -17,13 +17,108 @@
 
         <div class="row">
             <div class="col-md-12">
-
             </div>
             <div class="col-md-12">
-                <app-table [model]="model" [fields]="fields" *ngIf="model" [oneActions]="oneActions"></app-table>
+                <app-table [model]="model" [fields]="fields" [keys]="['nickname']" *ngIf="model" [oneActions]="oneActions"></app-table>
             </div>
-
         </div>
     </section>
+    <section *ngIf="selectedUser && relationTree">
+        <div class="row">
+            <div class="col-md-12">
+            </div>
+            <div class="col-md-12">
+                <h3>用户: {{selectedUser.nickname}}</h3>
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>一级师傅:</th>
+                            <th>二级师傅:</th>
+                            <th>三级师傅:</th>
+                        </tr>
+                        <tr>
+                            <th>师傅</th>
+                            <th>{{relationTree.level1Parent.nickname}}</th>
+                            <th>{{relationTree.level2Parent.nickname}}</th>
+                            <th>{{relationTree.level3Parent.nickname}}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th>一级徒弟</th>
+                            <th>昵称</th>
+                            <th>收徒时间</th>
+                            <th>性别</th>
+                        </tr>
+                        <tr *ngFor="let user of relationTree.level1Children">
+                            <td></td>
+                            <td>{{user.nickname}}</td>
+                            <td>{{user.createDt|date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                            <td>{{user.sex==1?"男":"女"}}</td>
+                        </tr>
+                        <tr class="primary"></tr>
+                        <tr>
+                            <th>二级徒弟</th>
+                            <th>昵称</th>
+                            <th>收徒时间</th>
+                            <th>性别</th>
+                        </tr>
+                        <tr *ngFor="let user of relationTree.level2Children;">
+                            <td></td>
+                            <td>{{user.nickname}}</td>
+                            <td>{{user.createDt|date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                            <td>{{user.sex==1?"男":"女"}}</td>
+                        </tr>
+                        <tr class="primary"></tr>
+                        <tr>
+                            <th>三级徒弟</th>
+                            <th>昵称</th>
+                            <th>收徒时间</th>
+                            <th>性别</th>
+                        </tr>
+                        <tr *ngFor="let user of relationTree.level3Children;">
+                            <td></td>
+                            <td>{{user.nickname}}</td>
+                            <td>{{user.createDt|date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                            <td>{{user.sex==1?"男":"女"}}</td>
+                        </tr>
 
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </section>
+    <section *ngIf="selectedUser && userClickRecords">
+        <div class="row">
+            <div class="col-md-12">
+            </div>
+            <div class="col-md-12">
+                <h3>用户: {{selectedUser.nickname}}</h3>
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <td>任务_id</td>
+                            <td>任务名称</td>
+                            <td>任务点击时间</td>
+                            <td>点击人</td>
+                            <td>返利一级</td>
+                            <td>返利二级</td>
+                            <td>返利三级</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let taskRecord of userClickRecords">
+                            <td>{{taskRecord.task?._id}}</td>
+                            <td>{{taskRecord.task?.title}}</td>
+                            <td>{{taskRecord.createDt|date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                            <td *ngFor="let order of taskRecord.shareDetail">{{order.user.nickname}} --->{{order.money|money}} </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </section>
 </div>

@@ -21,7 +21,7 @@ export class StaticsPageComponent implements OnInit {
   }
   async getSystemLog() {
     // debugger;
-    this.systemInfo = await this.config.GetManage('system-log');
+    this.systemInfo = await this.config.Get('/admin.systemLog.go');
   }
 
   ngOnInit() {

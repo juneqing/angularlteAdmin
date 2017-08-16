@@ -21,13 +21,13 @@ export class TaskTagEditPageComponent implements OnInit {
 
 
   async getTaskTagDetail() {
-    let result = await this.config.Get(`taskTag?_id=${this._id}`);
+    let result = await this.config.Get(`/admin.taskTag.go?_id=${this._id}`);
     this.editTaskTag = result.taskTag;
     this.subTasks = result.subTasks;
   }
   async putTaskTag() {
-    let result = await this.config.Put(`taskTag?_id=${this._id}`, this.editTaskTag);
-    this.config.router.navigateByUrl('/admin/taskTag-list');
+    let result = await this.config.Put(`/admin.taskTag.go?_id=${this._id}`, this.editTaskTag);
+    this.config.router.navigateByUrl('/admin.taskTag-list.go');
   }
 
 }

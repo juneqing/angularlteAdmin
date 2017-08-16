@@ -14,9 +14,9 @@ export class TaskTagNewPageComponent implements OnInit {
   constructor(public config: ConfigService) { }
 
   async postTaskTag() {
-    let newTask = await this.config.Post('taskTag', this.newTaskTag);
+    let newTask = await this.config.Post('/admin.taskTag.go', this.newTaskTag);
 
-    this.config.router.navigateByUrl('/admin/taskTag-list');
+    this.config.router.navigateByUrl('/admin.taskTagList.go');
 
   }
 

@@ -35,10 +35,8 @@ import { OfficeReleaseEditPageComponent } from './pages/office-release-edit-page
 import { ProjectListPageComponent } from './pages/project-list-page/project-list-page.component';
 import { AdvertPageComponent } from './pages/advert-page/advert-page.component';
 import { DatePipe } from '@angular/common';
-
 import { BugPageComponent } from './pages/bug-page/bug-page.component';
 import { PropPipe } from './pipes/prop.pipe';
-
 import { UserPageComponent } from './pages/user-page/user-page.component';
 import { TaskPageComponent } from './pages/task-page/task-page.component';
 import { AdvertHomePageComponent } from './pages/advert-home-page/advert-home-page.component';
